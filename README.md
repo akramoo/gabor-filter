@@ -1,5 +1,3 @@
----
-
 # Traitement d'un ensemble de données d'images médicales pour la détection de pneumonie
 
 ## Aperçu
