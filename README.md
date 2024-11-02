@@ -1,66 +1,62 @@
-Here’s an updated version of the README file that includes the folder structure and explanations:
+# Traitement d'un ensemble de données d'images médicales pour la détection de pneumonie
+
+## Aperçu
+
+Ce projet se concentre sur la préparation d'un ensemble de données d'images radiographiques thoraciques pour la détection de la pneumonie. Le processus inclut le renommage des images, l'application de filtres de Gabor pour l'extraction de textures, et l'enregistrement des caractéristiques dans un fichier CSV. Cet ensemble de caractéristiques permet une intégration efficace dans les pipelines de machine learning pour les tâches de classification. La méthode utilise des filtres de Gabor en raison de leur efficacité à capturer les motifs de texture, qui sont cruciaux pour différencier les poumons sains des poumons affectés par la pneumonie.
+
+### Cas d'utilisation
+
+Le code prend en charge le prétraitement d'un ensemble de données radiographiques pour la classification binaire :
+- **Classes** : "NORMAL" et "PNEUMONIA"
 
 ---
 
-# Medical Image Dataset Processing for Pneumonia Detection
-
-## Overview
-
-This project focuses on preparing a chest X-ray image dataset for pneumonia detection. The process includes relabeling images, applying Gabor filters for texture extraction, and saving the features in a CSV file. This feature set enables efficient integration into machine learning pipelines for classification tasks. The method leverages Gabor filters due to their effectiveness in capturing texture patterns, which are crucial in differentiating healthy from pneumonia-affected lungs.
-
-### Use Case
-
-The code supports preprocessing a chest X-ray dataset for binary classification:
-- **Classes**: "NORMAL" and "PNEUMONIA"
-
----
-
-## Project Structure
+## Structure du projet
 
 ```
 .
-├── Datasets                    # Folder containing the dataset of chest X-ray images
-│   ├── NORMAL                  # Subfolder containing images labeled as NORMAL
-│   └── PNEUMONIA               # Subfolder containing images labeled as PNEUMONIA
-├── .gitignore                  # Git ignore file to exclude unnecessary files from version control
-├── Datasets_features.csv       # CSV file containing extracted features from images
-├── LICENSE                     # License for the project
-├── README.md                   # Project documentation
-├── dataset_relabeler.ipynb     # Jupyter notebook for relabeling dataset images
-├── gabor_feature_extractor_to_csv.ipynb  # Jupyter notebook for applying Gabor filters and saving features to CSV
-└── project_report.pdf          # Detailed report on the dataset processing and feature extraction
+├── Datasets                              # Dossier contenant l'ensemble de données d'images radiographiques
+│   ├── NORMAL                            # Sous-dossier contenant les images étiquetées comme NORMALES
+│   └── PNEUMONIA                         # Sous-dossier contenant les images étiquetées comme PNEUMONIE
+├── .gitignore                            # Fichier Git pour exclure les fichiers inutiles du contrôle de version
+├── Datasets_features.csv                 # Fichier CSV contenant les caractéristiques extraites des images
+├── LICENSE                               # Licence du projet
+├── README.md                             # Documentation du projet
+├── dataset_relabeler.ipynb               # Notebook Jupyter pour renommer les images de l'ensemble de données
+├── gabor_feature_extractor_to_csv.ipynb  # Notebook Jupyter pour appliquer les filtres de Gabor et enregistrer les caractéristiques dans un CSV
+└── project_report.pdf                    # Rapport détaillé sur le traitement de l'ensemble de données et l'extraction des caractéristiques
 ```
 
-### Folder and File Explanations
+### Explication des dossiers et fichiers
 
-- **`Datasets/`**: Main folder containing the image dataset, organized into two subdirectories:
-  - **`NORMAL/`**: Contains chest X-ray images classified as "NORMAL."
-  - **`PNEUMONIA/`**: Contains chest X-ray images classified as "PNEUMONIA."
+- **`Datasets/`** : Dossier principal contenant l'ensemble de données d'images, organisé en deux sous-répertoires :
+  - **`NORMAL/`** : Contient les images radiographiques classées comme "NORMAL".
+  - **`PNEUMONIA/`** : Contient les images radiographiques classées comme "PNEUMONIA".
 
-- **`.gitignore`**: Specifies files and folders that should be ignored by Git, helping to keep the repository clean.
+- **`.gitignore`** : Spécifie les fichiers et dossiers à ignorer par Git, pour maintenir le dépôt propre.
 
-- **`Datasets_features.csv`**: A CSV file where the processed features from each image are stored. Each row contains texture features extracted using Gabor filters along with the label and unique identifier for each image.
+- **`Datasets_features.csv`** : Fichier CSV où les caractéristiques extraites de chaque image sont stockées. Chaque ligne contient les caractéristiques de texture extraites à l'aide de filtres de Gabor, ainsi que l'étiquette et l'identifiant unique de chaque image.
 
-- **`LICENSE`**: The license file outlines the terms of use, redistribution, and any restrictions associated with this project.
+- **`LICENSE`** : Fichier de licence décrivant les conditions d'utilisation, de redistribution, et les éventuelles restrictions associées à ce projet.
 
-- **`README.md`**: This file provides a comprehensive overview of the project, its structure, and the code functionality.
+- **`README.md`** : Ce fichier fournit une vue d'ensemble complète du projet, de sa structure et de la fonctionnalité du code.
 
-- **`dataset_relabeler.ipynb`**: A Jupyter notebook containing code to relabel the images in the dataset. It renames each image file with a unique identifier that includes the class label and a counter.
+- **`dataset_relabeler.ipynb`** : Notebook Jupyter contenant le code pour renommer les images de l'ensemble de données. Chaque fichier d'image est renommé avec un identifiant unique incluant l'étiquette de classe et un compteur.
 
-- **`gabor_feature_extractor_to_csv.ipynb`**: A Jupyter notebook for applying Gabor filters to each image in the dataset to extract texture features. The processed features and labels are then saved to `Datasets_features.csv`.
+- **`gabor_feature_extractor_to_csv.ipynb`** : Notebook Jupyter pour appliquer les filtres de Gabor à chaque image de l'ensemble de données afin d'extraire des caractéristiques de texture. Les caractéristiques traitées et les étiquettes sont ensuite enregistrées dans `Datasets_features.csv`.
 
-- **`project_report.pdf`**: A detailed report on the dataset processing methodology, the application of Gabor filters, and the extracted feature dataset. This includes references to relevant resources.
+- **`project_report.pdf`** : Rapport détaillé sur la méthodologie de traitement de l'ensemble de données, l'application des filtres de Gabor, et l'ensemble de données des caractéristiques extraites. Inclut des références aux ressources pertinentes.
 
 ---
 
-## Code Explanation
+## Explication du code
 
-### 1. Relabeling the Dataset
+### 1. Renommer l'ensemble de données
 
-Each image is relabeled based on its class and a unique counter to ensure consistent and recognizable filenames.
+Chaque image est renommée en fonction de sa classe et d'un compteur unique afin de garantir des noms de fichiers cohérents et reconnaissables.
 
 ```python
-# Renaming images with unique identifiers
+# Renommer les images avec des identifiants uniques
 for sub_dir in sub_dirs:
     folder_path = os.path.join(base_dir, sub_dir)
     if os.path.exists(folder_path):
@@ -73,18 +69,18 @@ for sub_dir in sub_dirs:
                 global_count += 1
 ```
 
-### 2. Defining and Applying Gabor Filters
+### 2. Définir et appliquer les filtres de Gabor
 
-Gabor filters are applied at multiple orientations, scales, and frequencies to capture texture patterns effectively.
+Les filtres de Gabor sont appliqués à plusieurs orientations, échelles et fréquences pour capturer efficacement les motifs de texture.
 
-- **Theta (Orientation)**: 0°, 45°, 90°, and 135°
-- **Sigma (Scale)**: 1 and 3
-- **Frequency**: 0.05 and 0.25
+- **Theta (Orientation)** : 0°, 45°, 90° et 135°
+- **Sigma (Échelle)** : 1 et 3
+- **Fréquence** : 0,05 et 0,25
 
-This configuration ensures the filters can detect texture variations relevant to lung condition analysis.
+Cette configuration garantit que les filtres peuvent détecter les variations de texture pertinentes pour l'analyse de la condition des poumons.
 
 ```python
-# Creating Gabor filters with various parameters
+# Création des filtres de Gabor avec différents paramètres
 kernels = []
 for theta in range(4):
     theta = theta / 4.0 * np.pi
@@ -94,16 +90,16 @@ for theta in range(4):
             kernels.append(kernel)
 ```
 
-### 3. Feature Extraction and Saving Data to CSV
+### 3. Extraction des caractéristiques et enregistrement des données dans un CSV
 
-Each image is processed to extract:
-- **Mean**: Average intensity of the filtered image.
-- **Variance**: Measures texture variation strength.
+Chaque image est traitée pour extraire :
+- **Moyenne** : Intensité moyenne de l'image filtrée.
+- **Variance** : Mesure de la force de variation de la texture.
 
-These features are saved in a CSV file, providing a structured dataset for machine learning models.
+Ces caractéristiques sont enregistrées dans un fichier CSV, fournissant un ensemble de données structuré pour les modèles de machine learning.
 
 ```python
-# Feature extraction and saving to CSV
+# Extraction des caractéristiques et enregistrement dans un CSV
 with open(csv_file_path, mode='w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(["numero d'image", "caractéristique", "label"])
@@ -125,13 +121,14 @@ with open(csv_file_path, mode='w', newline='') as file:
 
 ---
 
-## Summary
+## Résumé
 
-This code pipeline efficiently prepares a medical dataset for pneumonia detection by:
-- **Relabeling images** for structured dataset organization.
-- **Extracting Gabor texture features** that enhance the model's ability to distinguish between healthy and pneumonia-affected lungs.
-- **Saving features and labels in CSV** format for easy integration with machine learning models.
+Ce pipeline de code prépare efficacement un ensemble de données médical pour la détection de pneumonie en :
+- **Renommant les images** pour une organisation structurée de l'ensemble de données.
+- **Extrait des caractéristiques de texture avec des filtres de Gabor** qui améliorent la capacité du modèle à distinguer entre les poumons sains et ceux atteints de pneumonie.
+- **Enregistrant les caractéristiques et les étiquettes au format CSV** pour une intégration facile avec des modèles de machine learning.
 
-This enriched, texture-focused dataset is ready for classification tasks, enabling a more accurate distinction between "NORMAL" and "PNEUMONIA" cases.
+Cet ensemble de données enrichi, axé sur les textures, est prêt pour les tâches de classification, permettant une distinction plus précise entre les cas "NORMAL" et "PNEUMONIA".
 
 ---
+
